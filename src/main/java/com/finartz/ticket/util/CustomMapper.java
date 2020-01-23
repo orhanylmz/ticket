@@ -10,6 +10,7 @@ import com.finartz.ticket.dto.AirlineDTO;
 import com.finartz.ticket.dto.AirplaneDTO;
 import com.finartz.ticket.dto.AirportDTO;
 import com.finartz.ticket.dto.BaseDTO;
+import com.finartz.ticket.dto.CheckinDTO;
 import com.finartz.ticket.dto.CustomerDTO;
 import com.finartz.ticket.dto.FlyDTO;
 import com.finartz.ticket.dto.FlywayDTO;
@@ -18,6 +19,7 @@ import com.finartz.ticket.entity.AirlineEntity;
 import com.finartz.ticket.entity.AirplaneEntity;
 import com.finartz.ticket.entity.AirportEntity;
 import com.finartz.ticket.entity.BaseEntity;
+import com.finartz.ticket.entity.CheckinEntity;
 import com.finartz.ticket.entity.CustomerEntity;
 import com.finartz.ticket.entity.FlyEntity;
 import com.finartz.ticket.entity.FlywayEntity;
@@ -25,7 +27,7 @@ import com.finartz.ticket.entity.TicketEntity;
 
 @Priority(value = 0)
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
-public abstract class CommonMapper {
+public abstract class CustomMapper {
 	public abstract BaseDTO mapEntityToDto(BaseEntity entity);
 
 	public abstract BaseEntity mapDtoToEntity(BaseDTO dto);
@@ -69,9 +71,15 @@ public abstract class CommonMapper {
 	public abstract void updateEntity(FlywayDTO dto, @MappingTarget FlywayEntity entity);
 
 	public abstract TicketDTO mapEntityToDto(TicketEntity entity);
-
+	
 	public abstract TicketEntity mapDtoToEntity(TicketDTO dto);
-
+	
 	public abstract void updateEntity(TicketDTO dto, @MappingTarget TicketEntity entity);
+	
+	public abstract CheckinDTO mapEntityToDto(CheckinEntity entity);
+
+	public abstract CheckinEntity mapDtoToEntity(CheckinDTO dto);
+
+	public abstract void updateEntity(CheckinDTO dto, @MappingTarget CheckinEntity entity);
 
 }

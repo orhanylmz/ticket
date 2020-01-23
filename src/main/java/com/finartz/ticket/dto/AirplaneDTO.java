@@ -12,6 +12,5 @@ import lombok.experimental.Accessors;
 public class AirplaneDTO extends BaseDTO {
 	private Long id;
 	private String name;
-	private Integer capacity;
 	private AirlineDTO airline;
 }

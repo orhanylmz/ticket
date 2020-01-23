@@ -11,9 +11,7 @@ import com.finartz.ticket.entity.FlywayEntity;
 
 @Repository
 public interface FlyRepository extends JpaRepository<FlyEntity, Long> {
-	List<FlyEntity> findByFlightNumber(String flightNumber);
+	List<FlyEntity> findByFlightNumberAndFlyDateAfterOrderByFlyDate(String flightNumber, LocalDateTime flyDate);
 
-	List<FlyEntity> findByFlyway(FlywayEntity flyway);
-
-	List<FlyEntity> findByFlywayAndDateBetween(FlywayEntity flyway, LocalDateTime start, LocalDateTime end);
+	List<FlyEntity> findByFlywayAndFlyDateBetween(FlywayEntity flyway, LocalDateTime start, LocalDateTime end);
 }

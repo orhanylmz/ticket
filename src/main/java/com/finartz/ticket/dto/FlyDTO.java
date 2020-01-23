@@ -16,7 +16,8 @@ public class FlyDTO extends BaseDTO {
 	private Long id;
 	private String flightNumber;
 	private FlywayDTO flyway;
-	private AirplaneDTO airplane;
-	private LocalDateTime date;
+	private AirlineDTO airline;
+	private LocalDateTime flyDate;
 	private BigDecimal price;
+	private Integer occupancyRate;
 }

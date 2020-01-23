@@ -11,6 +11,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class AirportDTO extends BaseDTO {
 	private Long id;
+	private String code;
 	private String name;
 	private String country;
 	private String province;

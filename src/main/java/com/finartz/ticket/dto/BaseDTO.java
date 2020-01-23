@@ -17,6 +17,4 @@ import lombok.Setter;
 public class BaseDTO {
 	LocalDateTime createdAt;
 	LocalDateTime updatedAt;
-	String createdBy;
-	String updatedBy;
 }

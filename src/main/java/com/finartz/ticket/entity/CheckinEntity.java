@@ -1,13 +1,12 @@
 package com.finartz.ticket.entity;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -21,17 +20,14 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @Accessors(chain = true)
 @Entity
-@Table(name = "airplane")
-public class AirplaneEntity extends BaseEntity {
+@Table(name = "checkin")
+public class CheckinEntity extends BaseEntity {
 	@Id
-	@SequenceGenerator(name = "airplane_id_seq", allocationSize = 1)
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "airplane_id_seq")
+	@SequenceGenerator(name = "checkin_id_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "checkin_id_seq")
 	private Long id;
 
-	@Column(name = "name")
-	private String name;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "airline_id")
-	private AirlineEntity airline;
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "ticket_id")
+	private TicketEntity ticket;
 }

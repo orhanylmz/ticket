@@ -24,6 +24,9 @@ public class AirportEntity extends BaseEntity {
 	@SequenceGenerator(name = "airport_id_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "airport_id_seq")
 	private Long id;
+	
+	@Column(name = "code")
+	private String code;
 
 	@Column(name = "name")
 	private String name;

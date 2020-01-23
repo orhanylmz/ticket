@@ -1,7 +1,5 @@
 package com.finartz.ticket.dto;
 
-import java.util.List;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,8 +9,7 @@ import lombok.experimental.Accessors;
 @Setter
 @NoArgsConstructor
 @Accessors(chain = true)
-public class AirlineDTO extends BaseDTO {
+public class CheckinDTO extends BaseDTO {
 	private Long id;
-	private String name;
-	private List<FlywayDTO> flywayList;
+	private TicketDTO ticket;
 }

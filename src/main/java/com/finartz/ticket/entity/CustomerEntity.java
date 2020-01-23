@@ -19,7 +19,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @Accessors(chain = true)
 @Entity
-@Table(name = "customer", uniqueConstraints = { @UniqueConstraint(columnNames = { "identityNumber" }) })
+@Table(name = "customer", uniqueConstraints = { @UniqueConstraint(columnNames = { "identity_number" }) })
 public class CustomerEntity extends BaseEntity {
 	@Id
 	@SequenceGenerator(name = "customer_id_seq", allocationSize = 1)

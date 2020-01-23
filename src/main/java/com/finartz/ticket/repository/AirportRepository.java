@@ -12,6 +12,8 @@ import com.finartz.ticket.entity.AirportEntity;
 public interface AirportRepository extends JpaRepository<AirportEntity, Long> {
 	Optional<AirportEntity> findByName(String name);
 	
+	Optional<AirportEntity> findByCode(String code);
+	
 	List<AirportEntity> findByCountry(String country);
 	
 	List<AirportEntity> findByCountryAndProvince(String country, String province);

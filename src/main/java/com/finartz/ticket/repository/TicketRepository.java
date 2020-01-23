@@ -13,11 +13,11 @@ import com.finartz.ticket.enumeration.TicketStatus;
 
 @Repository
 public interface TicketRepository extends JpaRepository<TicketEntity, Long> {
-	Optional<TicketEntity> findBySeatNumber(String seatNumber);
-	
-	Optional<TicketEntity> findByCustomer(CustomerEntity customer);
+	List<TicketEntity> findByCustomer(CustomerEntity customer);
 	
 	List<TicketEntity> findByFly(FlyEntity fly);
+
+	Optional<TicketEntity> findByCustomerAndFly(CustomerEntity customer, FlyEntity fly);
 	
 	List<TicketEntity> findByFlyAndStatus(FlyEntity fly, TicketStatus status);
 }

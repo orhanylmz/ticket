@@ -33,18 +33,24 @@ public class FlyEntity extends BaseEntity {
 
 	@Column(name = "flight_number")
 	private String flightNumber;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "flyway_id")
 	private FlywayEntity flyway;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "airplane_id")
-	private AirplaneEntity airplane;
-	
-	@Column(name = "date")
-	private LocalDateTime date;
-	
+	@JoinColumn(name = "airline_id")
+	private AirlineEntity airline;
+
+	@Column(name = "fly_date")
+	private LocalDateTime flyDate;
+
 	@Column(name = "price")
 	private BigDecimal price;
+	
+	@Column(name = "original_price")
+	private BigDecimal originalPrice;
+
+	@Column(name = "occupancy_rate")
+	private Integer occupancyRate;
 }

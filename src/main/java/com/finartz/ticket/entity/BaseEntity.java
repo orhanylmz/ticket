@@ -30,16 +30,9 @@ public class BaseEntity {
 	@Column(name = "updated_at")
 	LocalDateTime updatedAt;
 
-	@Column(name = "created_by")
-	String createdBy;
-
-	@Column(name = "updated_by")
-	String updatedBy;
-
 	@PrePersist
 	void prePersist() {
 		createdAt = updatedAt = DateUtil.now();
-		updatedBy = createdBy;
 	}
 
 	@PreUpdate
