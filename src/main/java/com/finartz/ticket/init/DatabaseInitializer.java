@@ -1,7 +1,5 @@
 package com.finartz.ticket.init;
 
-import java.util.Arrays;
-
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -52,12 +50,10 @@ public class DatabaseInitializer implements CommandLineRunner {
 
 		AirlineEntity pegasus = new AirlineEntity();
 		pegasus.setName("PEGASUS");
-		pegasus.setFlywayList(Arrays.asList(trb_saw));
 		pegasus = airlineService.save(pegasus);
 
 		AirlineEntity thy = new AirlineEntity();
 		thy.setName("TÜRK HAVAYOLLARI");
-		thy.setFlywayList(Arrays.asList(saw_trb));
 		thy = airlineService.save(thy);
 
 		AirplaneEntity airplane01 = new AirplaneEntity();

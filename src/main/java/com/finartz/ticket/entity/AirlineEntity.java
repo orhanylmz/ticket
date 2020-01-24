@@ -1,16 +1,10 @@
 package com.finartz.ticket.entity;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -34,8 +28,4 @@ public class AirlineEntity extends BaseEntity {
 
 	@Column(name = "name")
 	private String name;
-	
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "airline_flyway", joinColumns = @JoinColumn(name = "airline_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "flyway_id", referencedColumnName = "id"))
-	private List<FlywayEntity> flywayList;
 }

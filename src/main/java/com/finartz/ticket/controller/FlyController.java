@@ -9,6 +9,7 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,11 +39,11 @@ public class FlyController {
 
 	@PostMapping("/v1/flyway")
 	@LogExecutionTime
-	public ResponseEntity<List<FlyDTO>> flyway(@PathVariable final RequestFlyList request) {
-		List<FlyEntity> flyList = flyService.findByFlywayAndDateBetween(request.getFlyway(), request.getStart(),
+	public ResponseEntity<List<FlyDTO>> flyway(@RequestBody final RequestFlyList request) {
+		List<FlyEntity> flyList = flyService.findByFlywayAndDateBetween(request.getFlyway().getId(), request.getStart(),
 				request.getEnd());
 		if (!ObjectUtils.isEmpty(request.getAirline())) {
-			flyList.stream().filter(fly -> fly.getAirline().getId().compareTo(request.getAirline()) == 0)
+			flyList.stream().filter(fly -> fly.getAirline().getId().compareTo(request.getAirline().getId()) == 0)
 					.collect(Collectors.toList());
 		}
 		List<FlyDTO> flyDTOList = flyList.stream().map(fly -> mapper.mapEntityToDto(fly)).collect(Collectors.toList());

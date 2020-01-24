@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 
 import javax.validation.constraints.NotNull;
 
+import com.finartz.ticket.dto.AirlineDTO;
+import com.finartz.ticket.dto.FlywayDTO;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,9 +15,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class RequestFlyList {
-	private Long airline;
+	private AirlineDTO airline;
 	@NotNull
-	private Long flyway;
+	private FlywayDTO flyway;
 	@NotNull
 	private LocalDateTime start;
 	@NotNull
