@@ -1,4 +1,4 @@
-package com.finartz.ticket.integration.service;
+package com.finartz.ticket.service;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
