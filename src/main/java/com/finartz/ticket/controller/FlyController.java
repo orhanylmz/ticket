@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.finartz.ticket.aop.LogExecutionTime;
 import com.finartz.ticket.dto.FlyDTO;
+import com.finartz.ticket.entity.AirlineEntity;
 import com.finartz.ticket.entity.FlyEntity;
+import com.finartz.ticket.exception.CustomEntityNotFoundException;
 import com.finartz.ticket.model.request.RequestFlyList;
+import com.finartz.ticket.service.AirlineService;
 import com.finartz.ticket.service.FlyService;
 import com.finartz.ticket.util.CustomMapper;
 
@@ -26,8 +29,18 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @RequestMapping("/fly")
 public class FlyController {
+	private final AirlineService airlineService;
 	private final FlyService flyService;
 	private final CustomMapper mapper;
+
+	@PostMapping("/v1/create")
+	@LogExecutionTime
+	public ResponseEntity<Long> create(@RequestBody FlyDTO flyDTO) {
+		AirlineEntity airline = airlineService.findById(flyDTO.getAirline().getId())
+				.orElseThrow(CustomEntityNotFoundException::new);
+		FlyEntity fly = flyService.save(mapper.mapDtoToEntity(flyDTO).setAirline(airline));
+		return new ResponseEntity<>(fly.getId(), HttpStatus.CREATED);
+	}
 
 	@GetMapping("/v1/flightNumber/{flightNumber}")
 	@LogExecutionTime

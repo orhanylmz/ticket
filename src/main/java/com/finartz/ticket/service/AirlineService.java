@@ -5,9 +5,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.finartz.ticket.dto.AirlineDTO;
-import com.finartz.ticket.dto.FlyDTO;
 import com.finartz.ticket.entity.AirlineEntity;
-import com.finartz.ticket.entity.FlyEntity;
 import com.finartz.ticket.exception.CustomEntityNotFoundException;
 import com.finartz.ticket.repository.AirlineRepository;
 import com.finartz.ticket.util.CustomMapper;
@@ -18,7 +16,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AirlineService {
 	private final AirlineRepository airlineRepository;
-	private final FlyService flyService;
 	private final CustomMapper mapper;
 
 	public AirlineEntity save(AirlineEntity entity) {
@@ -37,11 +34,5 @@ public class AirlineService {
 	
 	public Optional<AirlineEntity> findByName(String name) {
 		return airlineRepository.findByName(name);
-	}
-
-	public FlyEntity addFly(AirlineDTO airlineDTO, FlyDTO flyDTO) {
-		AirlineEntity airline = findById(airlineDTO.getId()).orElseThrow(CustomEntityNotFoundException::new);
-		FlyEntity fly = mapper.mapDtoToEntity(flyDTO).setAirline(airline);
-		return flyService.save(fly);
 	}
 }

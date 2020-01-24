@@ -12,11 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.finartz.ticket.aop.LogExecutionTime;
 import com.finartz.ticket.dto.AirlineDTO;
-import com.finartz.ticket.dto.FlyDTO;
 import com.finartz.ticket.entity.AirlineEntity;
-import com.finartz.ticket.entity.FlyEntity;
 import com.finartz.ticket.exception.CustomEntityNotFoundException;
-import com.finartz.ticket.model.request.RequestAddFly;
 import com.finartz.ticket.service.AirlineService;
 import com.finartz.ticket.util.CustomMapper;
 
@@ -55,12 +52,5 @@ public class AirlineController {
 	public ResponseEntity<AirlineDTO> name(@PathVariable String name) {
 		AirlineEntity airline = airlineService.findByName(name).orElseThrow(CustomEntityNotFoundException::new);
 		return new ResponseEntity<>(mapper.mapEntityToDto(airline), HttpStatus.OK);
-	}
-
-	@PostMapping("/v1/addFly")
-	@LogExecutionTime
-	public ResponseEntity<FlyDTO> addFly(@RequestBody RequestAddFly request) {
-		FlyEntity fly = airlineService.addFly(request.getAirline(), request.getFly());
-		return new ResponseEntity<>(mapper.mapEntityToDto(fly), HttpStatus.CREATED);
 	}
 }

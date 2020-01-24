@@ -37,7 +37,7 @@ public class FlyService {
 
 	private FlyEntity fixPrice(FlyEntity entity) {
 		if (entity.getOccupancyRate() % 10 == 0) {
-			entity.setPrice(entity.getOriginalPrice().multiply(new BigDecimal(100 + entity.getOccupancyRate()))
+			entity.setPrice(entity.getOriginalPrice().multiply(new BigDecimal(100 + (entity.getOccupancyRate() % 10)))
 					.divide(new BigDecimal(100)));
 		}
 		return save(entity);

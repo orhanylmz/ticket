@@ -58,10 +58,9 @@ public class TicketController {
 	@PostMapping("/v1/cancel")
 	@LogExecutionTime
 	public ResponseEntity<TicketDTO> cancel(@RequestBody TicketDTO ticketDTO) {
-		FlyEntity fly = flyService.findById(ticketDTO.getFly().getId()).orElseThrow(FlyNotFoundException::new);
 		TicketEntity ticket = ticketService.findById(ticketDTO.getId()).orElseThrow(EntityNotFoundException::new);
 		ticket = ticketService.passive(ticket);
-		flyService.decAndSave(fly);
+		flyService.decAndSave(ticket.getFly());
 		return new ResponseEntity<>(mapper.mapEntityToDto(ticket), HttpStatus.OK);
 	}
 

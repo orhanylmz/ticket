@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -47,10 +48,15 @@ public class FlyEntity extends BaseEntity {
 
 	@Column(name = "price")
 	private BigDecimal price;
-	
+
 	@Column(name = "original_price")
 	private BigDecimal originalPrice;
 
 	@Column(name = "occupancy_rate")
-	private Integer occupancyRate;
+	private Integer occupancyRate = 0;
+	
+	@PrePersist
+	void prePersist() {
+		originalPrice = price;
+	}
 }
