@@ -34,6 +34,10 @@ public class AirlineService {
 	public Optional<AirlineEntity> findById(Long id) {
 		return airlineRepository.findById(id);
 	}
+	
+	public Optional<AirlineEntity> findByName(String name) {
+		return airlineRepository.findByName(name);
+	}
 
 	public FlyEntity addFly(AirlineDTO airlineDTO, FlyDTO flyDTO) {
 		AirlineEntity airline = findById(airlineDTO.getId()).orElseThrow(CustomEntityNotFoundException::new);

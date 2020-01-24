@@ -31,9 +31,9 @@ public class AirlineController {
 
 	@PutMapping("/v1/create")
 	@LogExecutionTime
-	public ResponseEntity<AirlineDTO> create(@RequestBody AirlineDTO airlineDTO) {
+	public ResponseEntity<Long> create(@RequestBody AirlineDTO airlineDTO) {
 		AirlineEntity airline = airlineService.save(mapper.mapDtoToEntity(airlineDTO));
-		return new ResponseEntity<>(mapper.mapEntityToDto(airline), HttpStatus.CREATED);
+		return new ResponseEntity<>(airline.getId(), HttpStatus.CREATED);
 	}
 
 	@PostMapping("/v1/update")
@@ -47,6 +47,13 @@ public class AirlineController {
 	@LogExecutionTime
 	public ResponseEntity<AirlineDTO> id(@PathVariable Long airlineId) {
 		AirlineEntity airline = airlineService.findById(airlineId).orElseThrow(CustomEntityNotFoundException::new);
+		return new ResponseEntity<>(mapper.mapEntityToDto(airline), HttpStatus.OK);
+	}
+	
+	@GetMapping("/v1/name/{name}")
+	@LogExecutionTime
+	public ResponseEntity<AirlineDTO> name(@PathVariable String name) {
+		AirlineEntity airline = airlineService.findByName(name).orElseThrow(CustomEntityNotFoundException::new);
 		return new ResponseEntity<>(mapper.mapEntityToDto(airline), HttpStatus.OK);
 	}
 

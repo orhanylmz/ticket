@@ -30,9 +30,9 @@ public class AirportController {
 
 	@PutMapping("/v1/create")
 	@LogExecutionTime
-	public ResponseEntity<AirportDTO> create(@RequestBody AirportDTO airportDTO) {
+	public ResponseEntity<Long> create(@RequestBody AirportDTO airportDTO) {
 		AirportEntity airport = airportService.save(mapper.mapDtoToEntity(airportDTO));
-		return new ResponseEntity<>(mapper.mapEntityToDto(airport), HttpStatus.CREATED);
+		return new ResponseEntity<>(airport.getId(), HttpStatus.CREATED);
 	}
 
 	@PutMapping("/v1/update")

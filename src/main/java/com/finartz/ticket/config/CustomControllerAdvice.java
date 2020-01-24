@@ -1,5 +1,6 @@
 package com.finartz.ticket.config;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -52,6 +53,12 @@ public class CustomControllerAdvice {
 	public ResponseEntity<String> handleTicketNotFoundException(TicketNotFoundException exception) {
 		log.info("Handle " + exception.getClass().getName());
 		return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(ConstraintViolationException.class)
+	public ResponseEntity<String> handleConstraintViolationException(ConstraintViolationException exception) {
+		log.info("Handle " + exception.getClass().getName());
+		return new ResponseEntity<>("Already exist", HttpStatus.BAD_REQUEST);
 	}
 
 	@ExceptionHandler(CustomRuntimeException.class)

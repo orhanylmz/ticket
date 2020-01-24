@@ -48,6 +48,6 @@ public class FlywayService {
 
 	public List<FlywayEntity> findByToAirport(Long toAirportId) {
 		AirportEntity to = airportService.findById(toAirportId).orElseThrow(CustomEntityNotFoundException::new);
-		return flywayRepository.findByFromAirport(to);
+		return flywayRepository.findByToAirport(to);
 	}
 }

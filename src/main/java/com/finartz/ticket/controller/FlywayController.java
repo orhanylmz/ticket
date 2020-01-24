@@ -30,9 +30,9 @@ public class FlywayController {
 
 	@PutMapping("/v1/create")
 	@LogExecutionTime
-	public ResponseEntity<FlywayDTO> create(@RequestBody FlywayDTO flywayDTO) {
+	public ResponseEntity<Long> create(@RequestBody FlywayDTO flywayDTO) {
 		FlywayEntity flyway = flywayService.save(mapper.mapDtoToEntity(flywayDTO));
-		return new ResponseEntity<>(mapper.mapEntityToDto(flyway), HttpStatus.CREATED);
+		return new ResponseEntity<>(flyway.getId(), HttpStatus.CREATED);
 	}
 
 	@PutMapping("/v1/update")

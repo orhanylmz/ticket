@@ -36,6 +36,6 @@ public class AirlineEntity extends BaseEntity {
 	private String name;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "flyway", joinColumns = @JoinColumn(name = "airline_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "flyway_id", referencedColumnName = "id"))
+	@JoinTable(name = "airline_flyway", joinColumns = @JoinColumn(name = "airline_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "flyway_id", referencedColumnName = "id"))
 	private List<FlywayEntity> flywayList;
 }
