@@ -28,7 +28,7 @@ public class AirplaneService {
 		return airplaneRepository.findByName(name);
 	}
 
-	public List<AirplaneEntity> findByAirplane(AirlineEntity airline) {
+	public List<AirplaneEntity> findByAirline(AirlineEntity airline) {
 		return airplaneRepository.findByAirline(airline);
 	}
 }

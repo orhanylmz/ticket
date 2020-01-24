@@ -5,11 +5,8 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.finartz.ticket.dto.AirportDTO;
 import com.finartz.ticket.entity.AirportEntity;
-import com.finartz.ticket.exception.CustomEntityNotFoundException;
 import com.finartz.ticket.repository.AirportRepository;
-import com.finartz.ticket.util.CustomMapper;
 
 import lombok.RequiredArgsConstructor;
 
@@ -17,18 +14,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AirportService {
 	private final AirportRepository airportRepository;
-	private final CustomMapper mapper;
 
 	public AirportEntity save(AirportEntity entity) {
 		return airportRepository.save(entity);
 	}
 	
-	public AirportEntity update(AirportDTO dto) {
-		AirportEntity airport = findById(dto.getId()).orElseThrow(CustomEntityNotFoundException :: new);
-		mapper.updateEntity(dto, airport);
-		return save(airport);
-	}
-
 	public Optional<AirportEntity> findById(Long id) {
 		return airportRepository.findById(id);
 	}

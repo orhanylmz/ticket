@@ -18,6 +18,8 @@ import com.finartz.ticket.dto.FlyDTO;
 import com.finartz.ticket.entity.AirlineEntity;
 import com.finartz.ticket.entity.FlyEntity;
 import com.finartz.ticket.exception.CustomEntityNotFoundException;
+import com.finartz.ticket.exception.FlyNotFoundException;
+import com.finartz.ticket.model.FlyListModel;
 import com.finartz.ticket.model.RequestFlyList;
 import com.finartz.ticket.service.AirlineService;
 import com.finartz.ticket.service.FlyService;
@@ -42,17 +44,24 @@ public class FlyController {
 		return new ResponseEntity<>(fly.getId(), HttpStatus.CREATED);
 	}
 
-	@GetMapping("/v1/flightNumber/{flightNumber}")
+	@GetMapping("/v1/id/{flyId}")
 	@LogExecutionTime
-	public ResponseEntity<List<FlyDTO>> flightNumber(@PathVariable String flightNumber) {
-		List<FlyEntity> flyList = flyService.findByFlightNumber(flightNumber);
-		List<FlyDTO> flyDTOList = flyList.stream().map(fly -> mapper.mapEntityToDto(fly)).collect(Collectors.toList());
-		return new ResponseEntity<>(flyDTOList, HttpStatus.OK);
+	public ResponseEntity<FlyDTO> id(@PathVariable Long flyId) {
+		FlyEntity fly = flyService.findById(flyId).orElseThrow(FlyNotFoundException::new);
+		return new ResponseEntity<>(mapper.mapEntityToDto(fly), HttpStatus.OK);
 	}
 
-	@PostMapping("/v1/flyway")
+	@GetMapping("/v1/flightNumber/{flightNumber}")
 	@LogExecutionTime
-	public ResponseEntity<List<FlyDTO>> flyway(@RequestBody final RequestFlyList request) {
+	public ResponseEntity<FlyListModel> flightNumber(@PathVariable String flightNumber) {
+		List<FlyEntity> flyList = flyService.findByFlightNumber(flightNumber);
+		List<FlyDTO> flyDTOList = flyList.stream().map(fly -> mapper.mapEntityToDto(fly)).collect(Collectors.toList());
+		return new ResponseEntity<>(new FlyListModel().setFlyList(flyDTOList), HttpStatus.OK);
+	}
+
+	@PostMapping("/v1/flyList")
+	@LogExecutionTime
+	public ResponseEntity<FlyListModel> flyList(@RequestBody RequestFlyList request) {
 		List<FlyEntity> flyList = flyService.findByFlywayAndDateBetween(request.getFlyway().getId(), request.getStart(),
 				request.getEnd());
 		if (!ObjectUtils.isEmpty(request.getAirline())) {
@@ -60,6 +69,6 @@ public class FlyController {
 					.collect(Collectors.toList());
 		}
 		List<FlyDTO> flyDTOList = flyList.stream().map(fly -> mapper.mapEntityToDto(fly)).collect(Collectors.toList());
-		return new ResponseEntity<>(flyDTOList, HttpStatus.OK);
+		return new ResponseEntity<>(new FlyListModel().setFlyList(flyDTOList), HttpStatus.OK);
 	}
 }

@@ -1,13 +1,10 @@
 package com.finartz.ticket.controller;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,18 +25,11 @@ public class FlywayController {
 	private final FlywayService flywayService;
 	private final CustomMapper mapper;
 
-	@PutMapping("/v1/create")
+	@PostMapping("/v1/create")
 	@LogExecutionTime
 	public ResponseEntity<Long> create(@RequestBody FlywayDTO flywayDTO) {
 		FlywayEntity flyway = flywayService.save(mapper.mapDtoToEntity(flywayDTO));
 		return new ResponseEntity<>(flyway.getId(), HttpStatus.CREATED);
-	}
-
-	@PutMapping("/v1/update")
-	@LogExecutionTime
-	public ResponseEntity<FlywayDTO> update(@RequestBody FlywayDTO flywayDTO) {
-		FlywayEntity flyway = flywayService.update(flywayDTO);
-		return new ResponseEntity<>(mapper.mapEntityToDto(flyway), HttpStatus.OK);
 	}
 
 	@GetMapping("/v1/id/{id}")
@@ -49,27 +39,9 @@ public class FlywayController {
 		return new ResponseEntity<>(mapper.mapEntityToDto(flyway), HttpStatus.OK);
 	}
 
-	@GetMapping("/v1/from/{fromAirportId}")
-	@LogExecutionTime
-	public ResponseEntity<List<FlywayDTO>> from(@PathVariable Long fromAirportId) {
-		List<FlywayEntity> flywayEntityList = flywayService.findByFromAirport(fromAirportId);
-		List<FlywayDTO> flywayDTOList = flywayEntityList.stream().map(entity -> mapper.mapEntityToDto(entity))
-				.collect(Collectors.toList());
-		return new ResponseEntity<>(flywayDTOList, HttpStatus.OK);
-	}
-
-	@GetMapping("/v1/to/{toAirportId}")
-	@LogExecutionTime
-	public ResponseEntity<List<FlywayDTO>> to(@PathVariable Long toAirportId) {
-		List<FlywayEntity> flywayEntityList = flywayService.findByToAirport(toAirportId);
-		List<FlywayDTO> flywayDTOList = flywayEntityList.stream().map(entity -> mapper.mapEntityToDto(entity))
-				.collect(Collectors.toList());
-		return new ResponseEntity<>(flywayDTOList, HttpStatus.OK);
-	}
-
 	@GetMapping("/v1/from/{fromAirportId}/to/{toAirportId}")
 	@LogExecutionTime
-	public ResponseEntity<FlywayDTO> to(@PathVariable Long fromAirportId, @PathVariable Long toAirportId) {
+	public ResponseEntity<FlywayDTO> fromAndTo(@PathVariable Long fromAirportId, @PathVariable Long toAirportId) {
 		FlywayEntity flyway = flywayService.findByFromAirportAndToAirport(fromAirportId, toAirportId)
 				.orElseThrow(CustomEntityNotFoundException::new);
 		return new ResponseEntity<>(mapper.mapEntityToDto(flyway), HttpStatus.OK);
