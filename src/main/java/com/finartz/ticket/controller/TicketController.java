@@ -21,7 +21,7 @@ import com.finartz.ticket.entity.TicketEntity;
 import com.finartz.ticket.exception.FlyNotFoundException;
 import com.finartz.ticket.exception.InsufficientSeatException;
 import com.finartz.ticket.exception.TicketNotFoundException;
-import com.finartz.ticket.model.request.RequestBuyTicket;
+import com.finartz.ticket.model.RequestBuyTicket;
 import com.finartz.ticket.service.CheckinService;
 import com.finartz.ticket.service.CustomerService;
 import com.finartz.ticket.service.FlyService;

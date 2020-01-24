@@ -1,4 +1,4 @@
-package com.finartz.ticket.model.request;
+package com.finartz.ticket.model;
 
 import javax.validation.constraints.NotNull;
 

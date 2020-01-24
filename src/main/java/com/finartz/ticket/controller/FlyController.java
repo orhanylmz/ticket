@@ -18,7 +18,7 @@ import com.finartz.ticket.dto.FlyDTO;
 import com.finartz.ticket.entity.AirlineEntity;
 import com.finartz.ticket.entity.FlyEntity;
 import com.finartz.ticket.exception.CustomEntityNotFoundException;
-import com.finartz.ticket.model.request.RequestFlyList;
+import com.finartz.ticket.model.RequestFlyList;
 import com.finartz.ticket.service.AirlineService;
 import com.finartz.ticket.service.FlyService;
 import com.finartz.ticket.util.CustomMapper;
