@@ -22,7 +22,6 @@ import com.finartz.ticket.exception.FlyNotFoundException;
 import com.finartz.ticket.exception.InsufficientSeatException;
 import com.finartz.ticket.exception.TicketNotFoundException;
 import com.finartz.ticket.model.request.RequestBuyTicket;
-import com.finartz.ticket.model.request.RequestCheckin;
 import com.finartz.ticket.service.CheckinService;
 import com.finartz.ticket.service.CustomerService;
 import com.finartz.ticket.service.FlyService;
@@ -73,9 +72,8 @@ public class TicketController {
 
 	@PostMapping("/v1/checkin")
 	@LogExecutionTime
-	public ResponseEntity<CheckinDTO> checkin(@RequestBody RequestCheckin request) {
-		TicketEntity ticket = ticketService.findByCustomerAndFly(request.getCustomer(), request.getFly())
-				.orElseThrow(TicketNotFoundException::new);
+	public ResponseEntity<CheckinDTO> checkin(@RequestBody TicketDTO ticketDTO) {
+		TicketEntity ticket = ticketService.findById(ticketDTO.getId()).orElseThrow(TicketNotFoundException::new);
 		CheckinEntity checkin = checkinService.checkin(ticket);
 		return new ResponseEntity<>(mapper.mapEntityToDto(checkin), HttpStatus.OK);
 	}

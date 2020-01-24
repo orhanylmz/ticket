@@ -21,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TicketService {
 	private final TicketRepository ticketRepository;
+	private final CheckinService checkinService;
 	private final FlyService flyService;
 	private final CustomerService customerService;
 
@@ -29,6 +30,7 @@ public class TicketService {
 	}
 
 	public TicketEntity passive(TicketEntity entity) {
+		checkinService.removeCheckin(entity);
 		return save(entity.setStatus(TicketStatus.PASSIVE));
 	}
 

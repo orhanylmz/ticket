@@ -31,4 +31,12 @@ public class CheckinService {
 		}
 		return save(new CheckinEntity().setTicket(ticket));
 	}
+	
+	public void removeCheckin(TicketEntity ticket) {
+		Optional<CheckinEntity> optionalCheckin = checkinRepository.findByTicket(ticket);
+		if (!optionalCheckin.isPresent()) {
+			return;
+		}
+		checkinRepository.delete(optionalCheckin.get());
+	}
 }
